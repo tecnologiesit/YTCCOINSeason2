@@ -6,6 +6,16 @@ body {
     margin: 0;
     padding: 0;
     position: relative; /* For positioning the canvas */
+    overflow: hidden; /* Prevent scrolling */
+}
+
+canvas {
+    position: fixed; /* Fix the canvas to the background */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Place canvas behind other elements */
 }
 
 header {
@@ -13,6 +23,8 @@ header {
     color: white;
     padding: 20px;
     transition: all 0.5s ease; /* Smooth transition for header */
+    position: relative; /* Keep header above canvas */
+    z-index: 1; /* Ensure header is above the canvas */
 }
 
 h1 {
@@ -26,6 +38,8 @@ section {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 400px;
+    position: relative; /* Keep section above canvas */
+    z-index: 1; /* Ensure section is above the canvas */
 }
 
 h2 {
@@ -81,4 +95,4 @@ img:hover {
 
 .shake {
     animation: shake 0.5s ease forwards;
-    }
+        }
