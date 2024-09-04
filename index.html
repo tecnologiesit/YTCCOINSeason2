@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heirloom Mining</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+        #mineImage {
+            cursor: pointer;
+            width: 200px;
+            margin-top: 20px;
+        }
+        #levelProgress {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        #levelBar {
+            height: 20px;
+            width: 0;
+            background-color: #4CAF50;
+            border-radius: 5px;
+        }
+    </style>
+    <script>
+        let coins = 0;
+        let level = 1;
+        let coinsToNextLevel = 1000;
+
+        function mine() {
+            let tapCount = 1; // Default to 1 since no finger input is provided
+            let coinsPerTap = level * tapCount; // Coins per tap increases with level
+            coins += coinsPerTap;
+
+            // Update balance display
+            document.getElementById('balance').innerText = `Balance: ${coins} coins (added ${coinsPerTap} coins)`;
+
+            // Level up logic
+            if (coins >= coinsToNextLevel) {
+                coins -= coinsToNextLevel; // Deduct coins spent for leveling up
+                level++;
+                updateLevelProgress();
+                updateNextLevelRequirement();
+            }
+
+            // Update the level progress after mining
+            updateLevelProgress();
+        }
+
+        function updateLevelProgress() {
+            const levelUpRequirements = [1000, 5000, 10000, 20000, 50000, 1000000, 5000000, 8000000, 1000000000];
+            let currentRequirement = level <= levelUpRequirements.length ? levelUpRequirements[level - 1] : Infinity;
+
+            // Calculate the percentage remaining for the next level
+            let percentageRemaining = Math.max(0, ((currentRequirement - coins) / currentRequirement) * 100);
+            document.getElementById('levelBar').style.width = `${100 - percentageRemaining}%`;
+            document.getElementById('levelProgressText').innerText = `Level: ${level} | Progress: ${Math.round(100 - percentageRemaining)}%`;
+        }
+
+        function handleTap() {
+            mine();
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Heirloom Mining</h1>
+    </header>
+
+    <main>
+        <section id="mining">
+            <h2>Start Mining</h2>
+            <img id="mineImage" src="https://images.app.goo.gl/SCjsu36vbQm2EdLaA" alt="Mining Image" onclick="handleTap()" />
+            <p id="balance">Balance: 0 coins</p>
+            <div id="levelProgress">
+                <div id="levelBar"></div>
+            </div>
+            <p id="levelProgressText">Level: 1 | Progress: 0%</p>
+        </section>
+    </main>
+</body>
+  </html>
