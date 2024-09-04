@@ -54,7 +54,7 @@ function toggleHeader() {
     headerVisible = !headerVisible;
 }
 
-// Background animation
+// Background animation setup
 function createBackgroundAnimation() {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
@@ -100,5 +100,5 @@ function createBackgroundAnimation() {
     animateParticles();
 }
 
-// Initialize background animation
+// Initialize all functionalities
 createBackgroundAnimation();
